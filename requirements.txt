@@ -1,0 +1,12 @@
+django >=1.9
+markdown
+Pygments
+django-summernote
+xadmin
+django-dashing
+django-ckeditor
+whoosh
+django-haystack
+jieba
+django-imagekit
+
