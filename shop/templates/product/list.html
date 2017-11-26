@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% load blog_tags %}
+
+{% block title %}
+<title>{% if category %}{{ category.name }}{% else %}Products{% endif %}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class=" nav nav-list">Categories</li>
+              <li {% if not category %}class="selected"{% endif %} >
+                    <a href="{% url "shop:product_list" %}">all</a>
+                </li>
+                {% for c in categories %}
+                    <li {% if category.slug == c.slug %}class="selected"{% endif %} >
+                        <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+        <h2>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h2>
+        {% for product in products %}
+          <div class="row-fluid">
+            <div class="span4">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image_thumbnail }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="">
+                </a>
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+                ${{ product.price }}
+            </div><!--/span-->
+          </div><!--/row-->
+        {% endfor %}
+        </div><!--/span-->
+      </div><!--/row-->
+    </div>
+{% endblock %}
+{% block script %}
+<script>
+    <script src="http://v2.bootcss.com/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://v2.bootcss.com/js/bootstrap-transition.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-alert.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-modal.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-dropdown.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-tab.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-tooltip.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-popover.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-button.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-collapse.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-carousel.js"></script>
+    <script src="http://v2.bootcss.comassets/js/bootstrap-typeahead.js"></script>
+
+</script>
+{% endblock %}
