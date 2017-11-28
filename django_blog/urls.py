@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls', namespace="blog")),
     url(r'^about/', include('about.urls', namespace="about")),
     url(r'^cart/', include('cart.urls', namespace="cart")),
+    url(r'^orders/', include('orders.urls', namespace="orders")),
     url(r'^shop/', include('shop.urls', namespace="shop")),
     url(r'^summernote/', include('django_summernote.urls',)),
     url(r'^dashboard/', include(router.urls, namespace="Dashboard")),

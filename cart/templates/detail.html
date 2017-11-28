@@ -56,7 +56,7 @@
         </tbody>
     </table>
     <p>
-        <a href="{% url "shop:product_list" %}" class="button">Countinue shopping</a>
-        <a href="#" class="">Checkout</a>
+        <a href="{% url "shop:product_list" %}" class="btn btn-default">Countinue shopping</a>
+        <a href="{% url "orders:order_create" %}" class="btn btn-default">Checkout</a>
     </p>
 {% endblock %}

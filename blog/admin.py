@@ -19,5 +19,3 @@ admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.register(Comment, CommentAdmin)
-
-

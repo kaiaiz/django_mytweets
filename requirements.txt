@@ -9,4 +9,5 @@ whoosh
 django-haystack
 jieba
 django-imagekit
+celery
 

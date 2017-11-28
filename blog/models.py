@@ -71,8 +71,8 @@ class Article(models.Model):
                                  blank=True,
                                  null=True)
     author = models.CharField(choices=ARTICLE_AUTHOR_CHOICES,
-                              max_length=30,
-                              default='')
+                              default='',
+                              max_length=30)
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
