@@ -18,7 +18,6 @@ class CommentAdmin(SummernoteModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category)
 admin.site.register(Tag)
-admin.site.register(Famouswords)
 admin.site.register(Comment, CommentAdmin)
 
 

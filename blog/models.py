@@ -14,6 +14,7 @@ from taggit.managers import TaggableManager
 
 from about.models import UserProfile
 
+
 # Create your models here.
 class ArticleManager(models.Manager):
     def get_queryset(self):
@@ -53,6 +54,10 @@ class Article(models.Model):
         ('published', 'Published'),
     )
 
+    articleauthor = UserProfile.objects.all()
+
+    ARTICLE_AUTHOR_CHOICES = [(str(user), str(user)) for user in articleauthor]
+
 
     title = models.CharField(max_length=70,
                              default="title")
@@ -65,12 +70,9 @@ class Article(models.Model):
     category = models.ForeignKey(Category,
                                  blank=True,
                                  null=True)
-    #tags = models.ManyToManyField(Tag, blank=True)
-    author = models.ForeignKey(UserProfile,
-                               on_delete=models.CASCADE,
-                               null = True,
-                               blank = True,
-                               verbose_name='author')
+    author = models.CharField(choices=ARTICLE_AUTHOR_CHOICES,
+                              max_length=30,
+                              default='')
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')

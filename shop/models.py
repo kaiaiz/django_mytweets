@@ -38,8 +38,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/%Y/%m/%d',
                               blank=True)
     image_thumbnail = ImageSpecField(source='image',
-                                     processors=[ResizeToFill(200, 160)],
-                                     format='JPEG',
+                                     processors=[ResizeToFill(100, 80)],
+                                     format='JPG',
                                      options={'quanlity': 60})
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10,
