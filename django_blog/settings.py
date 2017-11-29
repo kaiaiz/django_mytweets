@@ -207,8 +207,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 #Email send
 EMAIL_HOST = 'smtp.163.com'
-EMAIL_HOST_USER = 'mopdouban@163.com'
-EMAIL_HOST_PASSWORD = 'a2a939'
+EMAIL_HOST_USER = 'mopdouba@163.com'
+EMAIL_HOST_PASSWORD = 'xxxx'
 EMAIL_POST = 25
 EMAIL_USE_TLS = True
 EMAIl_FROM = "mopdouban@163.com"
