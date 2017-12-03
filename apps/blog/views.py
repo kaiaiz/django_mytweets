@@ -13,6 +13,8 @@ from .forms import CommentForm
 
 def index(request, tag_slug=None):
     article_list = Article.objects.all()
+    tags = Tag.objects.all()
+    print tags
     indexword = Famouswords.objects.order_by('?')[:1]
     tag = None
 
@@ -32,7 +34,7 @@ def index(request, tag_slug=None):
 
     context = {'articles': articles,
                'indexword': indexword,
-               'tag': tag}
+               'tags': tags}
 
     return render(request, 'index.html', context)
 
@@ -73,3 +75,7 @@ def edit_action(request):
     models.Article.objects.create(title=title, content=content)
     articles = models.Article.objects.all()
     return render(request, 'index.html', {'articles': articles})
+
+def tag_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'tag_list.html', {'tags': tags})

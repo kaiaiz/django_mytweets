@@ -1,7 +1,9 @@
 import xadmin
 from xadmin import views
 
-from .models import Article, Category, Tag, Famouswords
+from taggit.models import Tag
+
+from .models import Article, Category, Famouswords
 from .models import Comment
 
 
@@ -16,8 +18,8 @@ class GlobalSetting(object):
     menu_style = "accordion"
 
 
-class AuthorInline(object):
-    model = Article
+class TagInline(object):
+    model = Tag
     extra = 0
 
 
@@ -27,6 +29,8 @@ class ArticleAdmin(object):
     search_fields = []
     list_filter = []
     list_editable = ("author")
+    prepopulated_fiels = {'slug': ('title',)}
+    raw_id_fields = ('author',)
     #inlines = [AuthorInline]
 
 

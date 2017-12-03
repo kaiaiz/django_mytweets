@@ -35,7 +35,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'blog:index' %}">Home</a></li>
-            <li><a href="#about">Tag</a></li>
+            <li><a href="{% url 'blog:tag_list' %}">Tag</a></li>
             <li><a href="#about">xxoo</a></li>
             <li><a href="{% url 'shop:product_list' %}">Shop</a></li>
             <li><a href="#about">About</a></li>
@@ -47,8 +47,8 @@
                 </a>
                 <ul class="dropdown-menu ">
                   {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'about:profile' %}">Profile</a></li>
-                    <li><a href="{% url 'about:logout' %}">logout</a></li>
+                    <li><a href="{% url 'about:profile' %}"><i class="glyphicon glyphicon-user"></i>Profile</a></li>
+                    <li><a href="{% url 'about:logout' %}"><i class="glyphicon glyphicon-off"></i>logout</a></li>
                   {% else %}
                     <li><a href="{% url 'about:register' %}">Register</a></li>
                     <li><a href="{% url 'about:login' %}">Login</a></li>
@@ -66,9 +66,9 @@
 
     </div><!-- /.container -->
 
-    <div id="footer">
+    <div class="footer">
         <div class="container">
-            <p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+            <p class="muted credit">yanchaomin'blog <a href="">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
         </div>
     </div>
     {% block script %}

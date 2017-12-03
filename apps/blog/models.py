@@ -7,6 +7,7 @@ from datetime import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils import timezone
 
 
 from simditor.fields import RichTextField
@@ -62,9 +63,12 @@ class Article(models.Model):
     title = models.CharField(max_length=70,
                              default="title")
     content = RichTextField()
+    #taggit
     tags = TaggableManager()
-    slug = models.SlugField(default=tags)
-    created_time = models.DateField(default=datetime.now)
+    slug = models.SlugField(max_length=250,
+                            unique_for_date='publish')
+    publish = models.DateTimeField(default=timezone.now)
+    created_time = models.DateField(auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey(Category,
