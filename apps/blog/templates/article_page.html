@@ -27,13 +27,23 @@
     </div ><!--/.span -->
     <div class="span9">
         <div class="row-fluid ">
+            {% if messages %}
+            <ul class="alert alert-successs" role="alert">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">
+                {{ message|safe }}
+                <a href="#" class="close">✖</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             <div >
                 <h1>{{ article.title }}</h1>
                 <p class="blog-post-meta"><strong>{{ article.created_time }} by {{ article.author }}</strong></a></p>
-                <p class="label label-primary">
+                <p >
                 Tags:
                 {% for tag in article.tags.all %}
-                <a href="{% url "blog:post_list_by_tag" tag.slug %}" >{{ tag.name }}</a>
+                <em><a href="{% url "blog:post_list_by_tag" tag.slug %}" class="label label-primary">{{ tag.name }}</a></em>
                 {% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </p>

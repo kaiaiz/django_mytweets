@@ -212,3 +212,6 @@ EMAIL_HOST_PASSWORD = 'xxxx'
 EMAIL_POST = 25
 EMAIL_USE_TLS = True
 EMAIl_FROM = "mopdouban@163.com"
+
+#csripy_forms templates
+CRISPY_TEMPLATE_PACK = "bootstrap"

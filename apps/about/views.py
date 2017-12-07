@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import View
 
 from .forms import LoginForm, UserRegistrationForm,\
-    UserProfileForm
+    UserProfileForm, ArticleEditForm
 from .models import UserProfile
+from blog.models import Famouswords, Article
 
 # Create your views here.
 def user_login(request):
@@ -57,18 +59,89 @@ def user_profile(request):
         userprofile_form = UserProfileForm(initial=initial)
         if userprofile_form.is_valid():
             nick_name = request.POST.get('mobile_number', '')
-            email = request.POST.get('email', '')
             mobile_number = request.POST.get('mobile_number', '')
             user = request.user
-            user.email = email
+            user.nick_name = nick_name
+            user.mobile_number = mobile_number
             user.save()
             return render(request,
-                          "about_user.html",
+                          "profile/profile.html",
                           {"userprofile_form": userprofile_form})
     else:
         userprofile_form = UserProfileForm()
-    print userprofile_form
     return render(request,
-                  'about_user.html',
+                  'profile/profile.html',
                   {'userprofile_form': userprofile_form})
+
+
+def about_user(request):
+    indexword = Famouswords.objects.order_by('?')[:1]
+    context = {
+        'indexword': indexword,
+    }
+
+    return render(request,
+                  'profile/index.html',
+                  context)
+
+def about_settings(request):
+    return render(request,
+                  'profile/settings.html')
+
+def about_messages(request):
+    return render(request,
+                  'profile/gallery.html')
+
+
+def about_article(request):
+    username = request.user.username
+    user_article = Article.objects.filter(author=username)
+
+#    if request.method == 'POST':
+
+    context = {
+        'user_article': user_article,
+    }
+
+    return render(request,
+                  'profile/article.html',
+                  context)
+
+
+class ArticleEditView(View):
+    def get(self, request, article_id):
+        edit_article = get_object_or_404(Article, pk=article_id)
+        init_article_form = {
+            'title': edit_article.title,
+            'content': edit_article.content
+        }
+        edit_article_form = ArticleEditForm(initial=init_article_form)
+
+        context = {
+            'edit_article': edit_article,
+            'edit_article_form': edit_article_form,
+        }
+        return render(request,
+                      'profile/article_edit.html',
+                      context)
+    def post(self, request, article_id):
+        edit_article_form = ArticleEditForm(request.POST)
+
+        if edit_article_form.is_valid():
+            title = edit_article_form.cleaned_data['title']
+            content = edit_article_form.cleaned_data['content']
+            edit_article = get_object_or_404(Article, pk=article_id)
+            edit_article.title = title
+            edit_article.content = content
+            edit_article.save()
+
+        context = {
+            'edit_article': edit_article,
+            'edit_article_form': edit_article_form,
+        }
+
+        return render(request,
+                      'profile/article_edit.html',
+                      context)
+
 

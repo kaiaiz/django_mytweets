@@ -13,6 +13,11 @@ class UserProfile(AbstractUser):
                                      null=True,
                                      blank=True,
                                      verbose_name='手机号')
+    photo = models.ImageField(upload_to='about/%Y/%m/%d',
+                              blank=True)
+    #personal introduction
+    biography = models.CharField(max_length=200,
+                                 blank=True)
 
     class Meta:
         verbose_name = u'用户详情'

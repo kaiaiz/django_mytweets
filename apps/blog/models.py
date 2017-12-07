@@ -61,8 +61,9 @@ class Article(models.Model):
 
 
     title = models.CharField(max_length=70,
-                             default="title")
-    content = RichTextField()
+                             default="title",
+                             verbose_name="标题")
+    content = RichTextField(verbose_name="内容")
     #taggit
     tags = TaggableManager()
     slug = models.SlugField(max_length=250,
@@ -88,6 +89,9 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:article_page', kwargs={'article_id': self.id})
+
+    def get_edit_url(self):
+        return reverse('about:article_edit', kwargs={'article_id': self.id})
 
     class Meta:
         ordering = ('created_time',)

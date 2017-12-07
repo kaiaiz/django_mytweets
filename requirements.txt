@@ -1,4 +1,4 @@
-django >=1.9
+django ==1.9.10
 markdown
 Pygments
 django-summernote
@@ -10,4 +10,5 @@ django-haystack
 jieba
 django-imagekit
 celery
+django-crispy-forms==1.6.1
 

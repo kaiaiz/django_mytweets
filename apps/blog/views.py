@@ -1,20 +1,22 @@
+#encoding=utf-8
 import markdown
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 
 from taggit.models import Tag
 
 
-from .models import Article, Famouswords, Comment
+from .models import Article, Famouswords, Comment, Category
 from .forms import CommentForm
 # Create your views here.
 
 def index(request, tag_slug=None):
     article_list = Article.objects.all()
     tags = Tag.objects.all()
-    print tags
+    categories = Category.objects.all()
     indexword = Famouswords.objects.order_by('?')[:1]
     tag = None
 
@@ -34,6 +36,7 @@ def index(request, tag_slug=None):
 
     context = {'articles': articles,
                'indexword': indexword,
+               'categories': categories,
                'tags': tags}
 
     return render(request, 'index.html', context)
@@ -47,10 +50,10 @@ def article_page(request, article_id):
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            print new_comment.body
             new_comment.article = article
             new_comment.save()
-            return HttpResponseRedirect(article.get_absolute_url())
+            messages.success(request, '评论已经提交')
+            return HttpResponseRedirect(article.get_edit_url())
     else:
         comment_form = CommentForm()
     article.content = markdown.markdown(article.content,
@@ -69,13 +72,12 @@ def article_change(request, article_id):
     return render(request, 'article_change.html')
 
 
-def edit_action(request):
-    title = request.POST.get('title', 'TITLE')
-    content = request.POST.get('content', 'CONTENT')
-    models.Article.objects.create(title=title, content=content)
-    articles = models.Article.objects.all()
-    return render(request, 'index.html', {'articles': articles})
-
 def tag_list(request):
     tags = Tag.objects.all()
     return render(request, 'tag_list.html', {'tags': tags})
+
+def about_me(request):
+    return render(request, 'about.html')
+
+
+

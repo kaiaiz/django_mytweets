@@ -7,16 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block title %}<title>Title</title>{%  endblock %}
+    <link rel="icon" href="{% static "img/favicon.ico" %}">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="http://v2.bootcss.com/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{% static "css/docs.css" %}"></script>
+    <script src="{% static "css/site.css" %}"></script>
+    <script src="http://v3.bootcss.com/assets/css/patch.css"></script>
+    <script src="http://v3.bootcss.com/assets/js/docs.min.js"></script>
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-      {% block style %}{% endblock style %}
-    </style>
+    {% block style %}<style></style>{% endblock style %}
     </head>
 
     <body>
@@ -38,7 +41,7 @@
             <li><a href="{% url 'blog:tag_list' %}">Tag</a></li>
             <li><a href="#about">xxoo</a></li>
             <li><a href="{% url 'shop:product_list' %}">Shop</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="{% url 'blog:about_me' %}">About</a></li>
 
             <li class="dropdown  dropdown-menu-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -59,18 +62,20 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    {% include "messages_display.html" %}
+
     <div class="container">
-
     {% block content %}{% endblock %}
-
     </div><!-- /.container -->
 
     <div class="footer">
-        <div class="container">
-            <p class="muted credit">yanchaomin'blog <a href="">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+        <div class="container ">
+            <a href="">baidu</a>
         </div>
     </div>
+
+    <script src="http://v3.bootcss.com/assets/js/docs.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static "js/site.js" %}"></script>
     {% block script %}
     <script ></script>
     {% endblock %}
