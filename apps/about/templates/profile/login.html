@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 <html lang="en"><!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
@@ -13,14 +14,15 @@
 	<body>
 		<div id="login-page" class="container">
 			<h1>登录</h1>
-			<form id="login-form" class="well" action="{% url 'about:login' %}" method="post">
+			<!--form id="login-form" class="well" action="{% url 'about:login' %}" method="post">
 			<input type="text" class="span2" placeholder="Email" /><br />
 			<input type="password" class="span2" placeholder="Password" /><br />
 			<label class="checkbox"> <input type="checkbox" /> Remember me </label>
 			{% csrf_token %}
 			<button type="submit" class="btn btn-primary">Sign in</button>
 			<button type="submit" class="btn">Forgot Password</button>
-		</form>
+		</form-->
+		{% crispy form %}
 		</div>
 		<script src="https://cdn.bootcss.com/jquery/1.7.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/2.2.1/bootstrap.min.js"></script>

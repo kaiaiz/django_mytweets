@@ -10,21 +10,21 @@
 		<fieldset>
 			<legend>个人信息</legend>
 			<div class="control-group">
-				<label class="control-label" for="input01">名字</label>
+				<label class="control-label" for="name">名字</label>
 				<div class="controls">
-					<input type="text" class="input-xlarge" id="input01" value="{{ request.user.username }}" />
+					<input type="text" class="input-xlarge" id="name" value="{{ request.user.nick_name }}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="input01">电话号码</label>
+				<label class="control-label" for="mobile_number">电话号码</label>
 				<div class="controls">
-					<input type="text" class="input-xlarge" id="input01" value="{{ request.user.mobile_number }}" />
+					<input type="text" class="input-xlarge" id="mobile_number" value="{{ request.user.mobile_number }}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="input01">邮件</label>
+				<label class="control-label" for="email">邮件</label>
 				<div class="controls">
-					<input type="text" class="input-xlarge" id="input01" value="{{ request.user.email }}" />
+					<input type="text" class="input-xlarge" id="email" value="{{ request.user.email }}" />
 				</div>
 			</div>
 			<div class="control-group">
@@ -46,9 +46,46 @@
 				</div>
 			</div>
 			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Save</button> <button class="btn">Cancel</button>
+				<button type="submit" id="submit" >提交</button>
+				<!--button type="submit" class="btn btn-primary" id="submit">Save</button> <button class="btn">Cancel</button-->
 			</div>
 		</fieldset>
 	</form>
 </div>
 {% endblock %}
+{% block script %}
+<script>
+        $(document).ready(function(){
+          $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+          });
+
+          $('#edit-profile').submit(function(){
+                  var name = $("#name").val();                 //获得form中用户输入的name 注意这里的id_name 与你html中的id一致
+                  var mobile_number = $("#mobile_number").val();
+                  var email = $("#email").val();    //同上
+
+                  $.ajax({
+                      type:"POST",
+                      data: {name:name, mobile_number:mobile_number, email:email},
+                      url: "{% url 'about:profile' %}", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                      cache: false,
+                      dataType: "html",
+                      beforeSend:function(xhr, settings){
+                      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                      },
+											success: function(data) {
+												alert("更新成功")
+												window.location.href="{% url 'about:profile' %}";
+											},
+                      error: function(){
+                          alert("false");
+                      }
+                  });
+                  return false;
+              });
+
+        });
+</script>
+{% endblock %}
+

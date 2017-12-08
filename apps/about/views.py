@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
 from .forms import LoginForm, UserRegistrationForm,\
@@ -49,24 +50,26 @@ def user_register(request):
         user_form = UserRegistrationForm()
     return render(request, 'register.html', {'user_form': user_form})
 
-
+@login_required
 def user_profile(request):
     initial = {'username': request.user.username,
                'nick_name': request.user.nick_name,
                'email': request.user.email,
                'mobile_number': request.user.mobile_number}
     if request.method == 'POST':
-        userprofile_form = UserProfileForm(initial=initial)
-        if userprofile_form.is_valid():
-            nick_name = request.POST.get('mobile_number', '')
-            mobile_number = request.POST.get('mobile_number', '')
-            user = request.user
-            user.nick_name = nick_name
-            user.mobile_number = mobile_number
-            user.save()
-            return render(request,
-                          "profile/profile.html",
-                          {"userprofile_form": userprofile_form})
+        userprofile_form = UserProfileForm(request.POST)
+        nick_name = request.POST['name']
+        mobile_number = request.POST['mobile_number']
+        print mobile_number
+        email = request.POST['email']
+        user = request.user
+        user.nick_name = nick_name
+        user.mobile_number = mobile_number
+        user.email = email
+        user.save()
+        return render(request,
+                      "profile/profile.html",
+                      {"userprofile_form": userprofile_form})
     else:
         userprofile_form = UserProfileForm()
     return render(request,

@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.shortcuts import HttpResponse, render_to_response
+from django.http import JsonResponse
 
 from .models import Category, Product
 
@@ -34,3 +36,12 @@ def product_detail(request, id, slug):
     return render(request,
                   'product/detail.html',
                   context)
+
+
+def ajax_list(request):
+    if request.method == 'POST':
+        print request.POST['name']
+        print request.POST['password']
+        return HttpResponse('well done')
+    else:
+        return render(request, 'product/ajax_list.html')

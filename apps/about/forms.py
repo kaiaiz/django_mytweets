@@ -1,4 +1,5 @@
 # encoding=utf-8
+
 from __future__ import absolute_import
 from django import forms
 
@@ -17,6 +18,19 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='密码',
                                widget=forms.PasswordInput(
                                    attrs={'class': 'form-control'}))
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_method = 'POST'
+        self.helper.layout = Layout(
+            Field("username", css_class='form-control'),
+            Field("password", css_class='form-control'),
+            FormActions(
+                Submit('submit', '登录', css_class='btn btn-default'),
+            )
+        )
 
 
 class UserRegistrationForm(forms.ModelForm):

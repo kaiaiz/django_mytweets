@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.product_list, name='product_list'),
+    url(r'^ajax_list/$', views.ajax_list, name='ajax_list'),
     url(r'^(?P<category_slug>[-\w]+)$',
         views.product_list,
         name='product_listi_by_category'),
