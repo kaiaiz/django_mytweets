@@ -1,0 +1,75 @@
+{% extends "base_profile.html" %}
+{% load staticfiles %}
+{% block title %}<title>文章</title>{% endblock %}
+{% block content %}
+<div class="span9">
+    <h1>
+        文章
+    </h1>
+    <ul class="tasks zebra-list">
+        {% for article in user_article %}
+        <li>
+            <a href="{% url 'blog:article_page' article.id %}">{{ article.title }}  创建于 {{ article.created_time }}</a>
+            <button type="button" class="btn btn-default"><a href="{% url 'about:article_edit' article.id %}">编辑</a></button>
+        </li>
+        {% endfor %}
+
+    </ul>
+    <a class="toggle-link" href="{% url "about:article_create" %}"><i class="icon-plus"></i>新建文章</a>
+    <!--a class="toggle-link" href="#new-article"><i class="icon-plus"></i>新建文章</a>
+
+    <form id="new-article" class="form-horizontal hidden">
+        <fieldset>
+            <div class="control-group">
+                <div class="control-group">
+                    <label class="control-label" for="title">标题</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="title" value="" />
+                    </div>
+                </div>
+                <label class="control-label" for="content">内容</label>
+                <div class="controls">
+                    <textarea class="input-xlarge" id="content" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="submit" class="btn btn-primary">Create</button> <button class="btn">Cancel</button>
+            </div>
+        </fieldset>
+    <-/form-->
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/site.js' %}"></script>
+<script>
+        $(document).ready(function(){
+          $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+          });
+
+          $('#new-article').submit(function(){
+                  var title = $("#title").val();                 //获得form中用户输入的name 注意这里的id_name 与你html中的id一致
+                  var article = $("#article").val();    //同上
+
+                  $.ajax({
+                      type:"POST",
+                      data: {title:title, content:content },
+                      url: "{% url 'about:article' %}", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                      cache: false,
+                      dataType: "html",
+                      beforeSend:function(xhr, settings){
+                      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                      },
+                                            success: function(data) {
+                                                alert("更新成功")
+                                                window.location.href="{% url 'about:profile' %}";
+                                            },
+                      error: function(){
+                          alert("false");
+                      }
+                  });
+                  return false;
+              });
+
+        });
+</script>
+{% endblock %}

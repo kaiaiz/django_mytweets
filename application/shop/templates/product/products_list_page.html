@@ -1,0 +1,16 @@
+{% load static %}
+
+{% load el_pagination_tags %}
+
+{% paginate products_list %}
+{% for product in products_list %}
+<div class="span3">
+    <a href="{{ product.get_absolute_url }}">
+        <img src="{% if product.image %}{{ MEDIA_URL }}{{ product.image }}{% else %}{% static "img/no_image.png" %}{% endif %}" class="img-rounded" width="200" height="200">
+    </a>
+    <br>
+    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+    ${{ product.price }}
+</div><!--/span-->
+{% endfor %}
+{% show_more %}

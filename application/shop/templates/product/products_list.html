@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load blog_tags %}
+
+{% block title %}
+<title>{% if category %}{{ category.name }}{% else %}Products{% endif %}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class=" nav nav-list">Categories</li>
+              <li {% if not category %}class="selected"{% endif %} >
+                    <a href="{% url "shop:product_list" %}">全部</a>
+                </li>
+                {% for c in categories %}
+                    <li {% if category.slug == c.slug %}class="selected"{% endif %} >
+                        <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+        <h2>{% if category %}{{ category.name }}{% else %}商品{% endif %}</h2>
+          <div class="row-fluid">
+            {% include page_template %}
+          </div><!--/row-->
+        </div><!--/span-->
+      </div><!--/row-->
+    </div-->
+
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static "js/jquery.jscroll.js" %}"></script>
+    <script src="{{ STATIC_URL }}el-pagination/js/el-pagination.js"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 20
+        });
+    </script
+{% endblock %}

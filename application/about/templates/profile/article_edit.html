@@ -1,0 +1,17 @@
+{% extends "base_profile.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}<title>编辑文章</title>{% endblock %}
+{% block script %}
+<!--script src="{% static 'js/button_click.js' %}"></script-->
+{% endblock %}
+{% block content %}
+<div class="span9">
+  <div class="container-fluid col-xs-12">
+    {% crispy edit_article_form %}
+    <button href="{% url "about:article" %}" class="btn btn-primary"><i class="icon-arrow-right"></i>返回</button>
+  </div>
+</div>
+<script>
+</script>
+{% endblock %}

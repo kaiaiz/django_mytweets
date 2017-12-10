@@ -11,4 +11,8 @@ jieba
 django-imagekit
 celery
 django-crispy-forms==1.6.1
+#shop page
+django-el-pagination
+#restful
+djangorestframework==3.6.4
 
