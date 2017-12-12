@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^dashboard/', include(router.urls, namespace="Dashboard")),
     url(r'^api/', include('api.urls', namespace="api")),
     url(r'^api-auth/', include('rest_framework.urls', namespace="rest_framework")),
+    url(r'^notifications/', include('notifications.urls', namespace="notifications")),
 #    url(r'^search/', include('haystack.urls', namespace="haystack")),
 ]
 

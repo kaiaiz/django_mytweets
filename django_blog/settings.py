@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     #add paginator
     'el_pagination',
     'rest_framework',
+    #notifications-hq
+    'notifications',
 
     'blog',
     'about',

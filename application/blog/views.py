@@ -53,7 +53,7 @@ def article_page(request, article_id):
             new_comment.article = article
             new_comment.save()
             messages.success(request, '评论已经提交')
-            return HttpResponseRedirect(article.get_edit_url())
+            return HttpResponseRedirect(article.get_absolute_url())
     else:
         comment_form = CommentForm()
     article.content = markdown.markdown(article.content,

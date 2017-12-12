@@ -15,4 +15,7 @@ django-crispy-forms==1.6.1
 django-el-pagination
 #restful
 djangorestframework==3.6.4
-
+#notification system
+django-notifications-hq
+#pinax
+pinax-cli
