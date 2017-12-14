@@ -1,9 +1,12 @@
+#encoding=utf-8
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+
+from notifications.signals import notify
 
 from .forms import (LoginForm, UserRegistrationForm,
     UserProfileForm, ArticleEditForm, ArticleCreateForm)
@@ -90,7 +93,7 @@ def about_settings(request):
 
 def about_messages(request):
     return render(request,
-                  'profile/gallery.html')
+                  'profile/messages.html')
 
 
 class ArticleView(LoginRequiredMixin, View):
@@ -126,6 +129,12 @@ class ArticleCreateView(LoginRequiredMixin, View):
         if article_create_form.is_valid():
             cd = article_create_form.save(commit=False)
             cd.author = request.user
+            verb = "创建一篇名为 {title} 的文章".format(title=cd.title)
+            user = UserProfile.objects.get(id=cd.author.id)
+
+            notify.send(user, recipient=user, verb=verb)
+            print user.notifications.unread()
+
             cd.save()
             return HttpResponseRedirect('about/article')
 
@@ -136,11 +145,6 @@ class ArticleCreateView(LoginRequiredMixin, View):
         return render(request,
                       'profile/article_create.html',
                       context)
-
-
-
-
-
 
 
 class ArticleEditView(View):

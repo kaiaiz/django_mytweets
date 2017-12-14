@@ -27,10 +27,9 @@ urlpatterns = [
     url(r'^shop/', include('shop.urls', namespace="shop")),
     url(r'^coupons/', include('coupons.urls', namespace="coupons")),
     url(r'^summernote/', include('django_summernote.urls',)),
-    url(r'^dashboard/', include(router.urls, namespace="Dashboard")),
     url(r'^api/', include('api.urls', namespace="api")),
     url(r'^api-auth/', include('rest_framework.urls', namespace="rest_framework")),
-    url(r'^notifications/', include('notifications.urls', namespace="notifications")),
+    url(r'^inbox/notifications/', include('notifications.urls', namespace="notifications")),
 #    url(r'^search/', include('haystack.urls', namespace="haystack")),
 ]
 

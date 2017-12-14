@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load notifications_tags %}
 <html lang="en"><!--<![endif]-->
     <head>
         <meta charset="utf-8">
@@ -10,6 +11,8 @@
         <script src="https://cdn.bootcss.com/bootstrap/2.2.1/bootstrap.min.js"></script>
         <script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.min.js"></script>
         <link href="{% static "css/site.css" %}" rel="stylesheet">
+        <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+        {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     </head>
     <body>
@@ -90,7 +93,9 @@
                                     <a href="{% url "about:article" %}"><i class="icon-th-list"></i>文章</a>
                                 </li>
                                 <li>
-                                    <a href="{% url "about:messages" %}"><i class="icon-envelope"></i> 站内信</a>
+                                    <a href="{% url "about:messages" %}"><i class="icon-envelope"></i> 站内信
+                                    {% live_notify_badge classes="badge" %}
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="files.htm"><i class="icon-file"></i> Files</a>
