@@ -93,7 +93,7 @@ class ArticleEditForm(forms.ModelForm):
 class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'slug', 'category', 'status', 'tags']
+        fields = ['title', 'content', 'slug', 'category', 'status',]
 
     def __init__(self, *args, **kwargs):
         super(ArticleCreateForm, self).__init__(*args, **kwargs)
@@ -107,7 +107,7 @@ class ArticleCreateForm(forms.ModelForm):
             Field("slug"),
             Field("status"),
             Field("category"),
-            Field("tags"),
+#            Field("tags"),
             FormActions(
                 Submit('save', '创建'),
             )

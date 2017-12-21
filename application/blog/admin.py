@@ -7,8 +7,9 @@ from .models import Comment
 
 
 class ArticleAdmin(SummernoteModelAdmin):
-    list_display = ('title', 'content', 'author', 'created_time',
-                    'status')
+    pass
+#    list_display = ('title', 'content', 'author', 'created_time',
+#                    'status')
 
 
 class CommentAdmin(SummernoteModelAdmin):
