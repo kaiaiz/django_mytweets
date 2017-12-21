@@ -109,7 +109,7 @@ class Famouswords(models.Model):
     author = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):
-        return self.body[:10]
+        return self.body
 
     class Meta:
         verbose_name = u'名言警句'

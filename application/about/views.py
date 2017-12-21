@@ -79,17 +79,25 @@ def user_profile(request):
 
 def about_user(request):
     indexword = Famouswords.objects.order_by('?')[:1]
+    print indexword
+    article = Article.objects.filter(author=request.user.username)
+    article_nums = article.count()
+
+
     context = {
         'indexword': indexword,
+        'article_nums': article_nums
     }
 
     return render(request,
                   'profile/index.html',
                   context)
 
+
 def about_settings(request):
     return render(request,
                   'profile/settings.html')
+
 
 def about_messages(request):
     return render(request,

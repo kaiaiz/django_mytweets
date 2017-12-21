@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends "base_profile.html" %}
 {% load staticfiles %}
-{% block title %}<title>index</title>{% endblock %}
+{% block title %}<title>个人中心</title>{% endblock %}
 {% block content %}
 <div class="span9">
 	<h1>
@@ -24,10 +24,13 @@
 				<a href="#"><span class="count">3</span> Projects</a>
 			</li>
 			<li>
-				<a href="#"><span class="count">27</span> Tasks</a>
+				<a href="#"><span class="count">{{ article_nums }}</span> 文章</a>
 			</li>
 			<li>
-				<a href="#"><span class="count">7</span> Messages</a>
+				<a href="#"><span class="count">7</span> 站内信</a>
+			</li>
+			<li>
+				<a href="#"><span class="count">7</span> 购物车</a>
 			</li>
 			<li class="last">
 				<a href="#"><span class="count">5</span> Files</a>
@@ -203,7 +206,7 @@
 	</ul>
     <ul class="pager">
 		<li class="next">
-			More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+			yanchaomin'blog <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
 		</li>
 	</ul>
 </div>
