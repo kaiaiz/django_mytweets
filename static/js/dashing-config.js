@@ -1,12 +1,18 @@
+/* global $, Dashboard */
+
 var dashboard = new Dashboard();
 
 dashboard.addWidget('clock_widget', 'Clock');
 
-dashboard.addWidget('custom_widget', 'Number', {
+dashboard.addWidget('current_valuation_widget', 'Number', {
     getData: function () {
         $.extend(this.scope, {
-            title: 'custom_widget.title',
-            value: '$123445'
+            title: 'Current Valuation',
+            moreInfo: 'In billions',
+            updatedAt: 'Last updated at 14:10',
+            detail: '64%',
+            value: '$35',
+            icon: 'fa fa-arrow-up'
         });
     }
 });
@@ -36,13 +42,35 @@ dashboard.addWidget('convergence_widget', 'Graph', {
             title: 'Convergence',
             value: '41',
             moreInfo: '',
-            data: [
-                    { x: 0, y: 40 },
-                    { x: 1, y: 49 },
-                    { x: 2, y: 38 },
-                    { x: 3, y: 30 },
+            data: [ 
+                    { x: 0, y: 40 }, 
+                    { x: 1, y: 49 }, 
+                    { x: 2, y: 38 }, 
+                    { x: 3, y: 30 }, 
                     { x: 4, y: 32 }
                 ]
             });
+    }
+});
+
+dashboard.addWidget('completion_widget', 'Knob', {
+    getData: function () {
+        $.extend(this.scope, {
+            title: 'Completion',
+            updatedAt: 'Last updated at 14:10',
+            detail: 'today 10',
+            value: '35',
+            data: {
+                angleArc: 250,
+                angleOffset: -125,
+                displayInput: true,
+                displayPrevious: true,
+                step: 1,
+                min: 1,
+                max: 99,
+                readOnly: true,
+                format: function(value) { return value + '%'; }
+            }
+        });
     }
 });

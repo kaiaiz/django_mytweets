@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-#    'dashing',
+    'dashing',
 #    'ckeditor',
     'simditor',
     'taggit',
@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework',
     #notifications-hq
     'notifications',
+    #django_messages
+    'django_messages',
 
     'blog',
     'about',
@@ -103,6 +105,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+                'django_messages.context_processors.inbox'
             ],
         },
     },
@@ -248,5 +251,5 @@ REST_FRAMWORK = {
 }
 
 #login
-LOGIN_REDIRECT_URL = 'about/login'
-LOGIN_URL = 'about/login'
+LOGIN_REDIRECT_URL = '/blog/index/'
+LOGIN_URL = '/about/login/'

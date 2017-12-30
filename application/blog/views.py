@@ -44,6 +44,7 @@ def index(request, tag_slug=None):
 
 def article_page(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
+
     comments = article.comments.filter(active=True)
 
     if request.method == 'POST':

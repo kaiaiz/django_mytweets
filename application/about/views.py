@@ -76,7 +76,7 @@ def user_profile(request):
                   'profile/profile.html',
                   {'userprofile_form': userprofile_form})
 
-
+@login_required
 def about_user(request):
     indexword = Famouswords.objects.order_by('?')[:1]
     print indexword
@@ -93,12 +93,12 @@ def about_user(request):
                   'profile/index.html',
                   context)
 
-
+@login_required
 def about_settings(request):
     return render(request,
                   'profile/settings.html')
 
-
+@login_required
 def about_messages(request):
     return render(request,
                   'profile/messages.html')
@@ -142,7 +142,6 @@ class ArticleCreateView(LoginRequiredMixin, View):
 
             notify.send(user, recipient=user, verb=verb)
             print user.notifications.unread()
-
             cd.save()
             return HttpResponseRedirect('about/article')
 
@@ -155,12 +154,15 @@ class ArticleCreateView(LoginRequiredMixin, View):
                       context)
 
 
-class ArticleEditView(View):
+class ArticleEditView(LoginRequiredMixin, View):
     def get(self, request, article_id):
         edit_article = get_object_or_404(Article, pk=article_id)
+        tags = edit_article.tags.names()
+        tag = ','.join(t for t in tags)
         init_article_form = {
             'title': edit_article.title,
-            'content': edit_article.content
+            'content': edit_article.content,
+            'tags': tag
         }
         edit_article_form = ArticleEditForm(initial=init_article_form)
 
@@ -178,9 +180,20 @@ class ArticleEditView(View):
         if edit_article_form.is_valid():
             title = edit_article_form.cleaned_data['title']
             content = edit_article_form.cleaned_data['content']
+            tags = edit_article_form.cleaned_data['tags']
+            print tags
+
             edit_article = get_object_or_404(Article, pk=article_id)
             edit_article.title = title
             edit_article.content = content
+
+            for tag in tags:
+                if tag in edit_article.tags.all():
+                    pass
+                else:
+                    edit_article.tags.clear()
+                    edit_article.tags.add(tag)
+
             edit_article.save()
 
         context = {

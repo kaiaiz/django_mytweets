@@ -72,7 +72,7 @@ class ArticleEditForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'tags']
 
     def __init__(self, *args, **kwargs):
         super(ArticleEditForm, self).__init__(*args, **kwargs)
@@ -83,17 +83,17 @@ class ArticleEditForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field("title"),
             Field("content"),
+            Field("tags", '标签'),
             FormActions(
                 Submit('save', '保存'),
             )
         )
 
 
-
 class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'slug', 'category', 'status',]
+        fields = ['title', 'content', 'slug', 'category', 'status', 'tags']
 
     def __init__(self, *args, **kwargs):
         super(ArticleCreateForm, self).__init__(*args, **kwargs)
@@ -102,12 +102,12 @@ class ArticleCreateForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_method = 'POST'
         self.helper.layout = Layout(
-            Field("title"),
-            Field("content"),
-            Field("slug"),
-            Field("status"),
-            Field("category"),
-#            Field("tags"),
+            Field("title", '标题'),
+            Field("content", '内容'),
+            Field("slug", ),
+            Field("status", '状态'),
+            Field("category", '目录'),
+            Field("tags", '标签'),
             FormActions(
                 Submit('save', '创建'),
             )

@@ -1,14 +1,10 @@
 #encoding=utf-8
 from __future__ import unicode_literals
 
-import markdown
-from datetime import datetime
-
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
-
 
 from simditor.fields import RichTextField
 from taggit.managers import TaggableManager
@@ -51,8 +47,8 @@ class Tag(models.Model):
 
 class Article(models.Model):
     STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
+        ('draft', '草稿'),
+        ('published', '发布'),
     )
 
     articleauthor = UserProfile.objects.all()
@@ -77,13 +73,16 @@ class Article(models.Model):
     #                         null=True),
     category = models.ForeignKey(Category,
                                  blank=True,
-                                 null=True)
+                                 null=True,
+                                 verbose_name='目录')
     author = models.CharField(choices=ARTICLE_AUTHOR_CHOICES,
                               default='',
                               max_length=30)
+    #author = models.ForeignKey('about.UserProfile',)
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
-                              default='draft')
+                              default='draft',
+                              verbose_name='状态')
 #    published = ArticleManager()
 
     def save(self, *args, **kwargs):

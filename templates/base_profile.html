@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load notifications_tags %}
+{% load inbox %}
 <html lang="en"><!--<![endif]-->
     <head>
         <meta charset="utf-8">
@@ -94,7 +95,7 @@
                                 </li>
                                 <li>
                                     <a href="{% url "about:messages" %}"><i class="icon-envelope"></i> 站内信
-                                    {% live_notify_badge classes="badge" %}
+                                    {% live_notify_badge classes="badge" %}{% inbox_count %}
                                     </a>
                                 </li>
                                 <li>

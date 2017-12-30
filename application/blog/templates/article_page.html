@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% load blog_tags %}
 {% load crispy_forms_tags %}
-{% block title %}<title>{{ article.title }}</title>{% endblock %}
+{% block title %}<title>  {{ article.title }}</title>{% endblock %}
 {% block content %}
 <div class="container-fluid">
 <div class="row-fluid">
@@ -10,6 +10,15 @@
         <div class="well sidebar-nav ">
             <ul class="nav nav-list">
               <li class="nav-header">目录</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+        </div><!--/.well -->
+        <div class="well sidebar-nav ">
+            <ul class="nav nav-list">
+              <li class="nav-header">相关文章推荐</li>
               <li class="active"><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
@@ -33,7 +42,7 @@
                 <h1>{{ article.title }}</h1>
                 <p class="blog-post-meta"><strong>{{ article.created_time }} by {{ article.author }}</strong></a></p>
                 <p >
-                Tags:
+                <span class="glyphicon glyphicon-tag"></span>
                 {% for tag in article.tags.all %}
                 <em><a href="{% url "blog:post_list_by_tag" tag.slug %}" class="label label-primary">{{ tag.name }}</a></em>
                 {% if not forloop.last %}, {% endif %}
@@ -44,7 +53,7 @@
             <div>
                 {% with comments.count as total_comments %}
                 <h3>
-                    <span class="badge badge-inverse">{{ total_comments }}</span>comment{{ total_comments|pluralize }}
+                    <span class="badge badge-inverse">{{ total_comments }}</span>评论{{ total_comments|pluralize }}
                 </h3>
                 {% endwith %}
                 {% for comment in comments %}
@@ -68,6 +77,8 @@
                             {% csrf_token %}
                         </form>
                     {% endif %}
+                {% else %}
+                <p><a href="{% url 'about:login' %}">登录</a>或者<a href="{% url 'about:register' %}">注册</a>后可以添加评论</p>
                 {% endif %}
             </div>
         </div><!-- class="row-fluid"-->

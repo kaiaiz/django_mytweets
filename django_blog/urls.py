@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^api/', include('api.urls', namespace="api")),
     url(r'^api-auth/', include('rest_framework.urls', namespace="rest_framework")),
     url(r'^inbox/notifications/', include('notifications.urls', namespace="notifications")),
+    url(r'^messages/', include('django_messages.urls', namespace="notifications")),
 #    url(r'^search/', include('haystack.urls', namespace="haystack")),
 ]
 
