@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load blog_tags %}
+{% load notifications_tags %}
+{% load inbox %}
 <html lang="en">
     <head>
     <meta charset="utf-8">
@@ -19,6 +21,7 @@
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
     {% block style %}<style></style>{% endblock style %}
     {% block js %}{% endblock %}
     </head>
@@ -47,6 +50,10 @@
             <li class="dropdown  dropdown-menu-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     账户
+                    {% notifications_unread as unread_count %}
+                    {% if unread_count %}
+                        {% live_notify_badge classes="badge" %}
+                    {% endif %}
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu ">

@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from django.core.urlresolvers import reverse
 
 from notifications.signals import notify
 
@@ -205,4 +206,8 @@ class ArticleEditView(LoginRequiredMixin, View):
                       'profile/article_edit.html',
                       context)
 
-
+def user_mark_all_read(request):
+    user = request.user
+    notifies = user.notifications.all()
+    notifies.mark_all_as_read()
+    return HttpResponseRedirect('about/messages')
